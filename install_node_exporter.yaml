@@ -1,0 +1,4 @@
+- name: install node_exporter
+  hosts: hosts 
+  roles:
+    - node_exporter

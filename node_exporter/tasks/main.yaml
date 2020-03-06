@@ -1,0 +1,22 @@
+- name: Node_exporter install - copy the node_exporter
+  copy:
+    src: 0.18.1/node_exporter
+    dest: /usr/local/bin/node_exporter
+    mode: 0751
+- name: Node_exporter install - copy the service file
+  copy: 
+    src: node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+- name: Node_exporter install - add the user to run node_exporter
+  user:
+    name: node_exporter
+    shell: /bin/false
+    createhome: no
+    system: yes
+    state: present
+- name: start node_exporter service and check it on boot
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: node_exporter
+    state: started
